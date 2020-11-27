@@ -1,0 +1,28 @@
+sudo: required
+language: generic
+
+services:
+  - docker
+
+before_install:
+  - docker build -t cbienaime/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true cbienaime/react-test npm test
+
+after_success:
+  - docker build -t cbienaime/multi-client ./client
+  - docker build -t cbienaime/multi-nginx ./nginx
+  - docker build -t cbienaime/multi-server ./server
+  - docker build -t cbienaime/multi-worker ./worker
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push cbienaime/multi-client
+  - docker push cbienaime/multi-nginx
+  - docker push cbienaime/multi-server
+<<<<<<< HEAD
+  - docker push cbienaime/multi-worker
+=======
+  - docker push cbienaime/multi-worker
+>>>>>>> 9fa75db8e61d2df100dd3279c0bbaab93d76b9dd
