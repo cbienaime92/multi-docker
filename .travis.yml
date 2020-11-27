@@ -21,8 +21,6 @@ after_success:
   - docker push cbienaime/multi-client
   - docker push cbienaime/multi-nginx
   - docker push cbienaime/multi-server
-<<<<<<< HEAD
   - docker push cbienaime/multi-worker
-=======
-  - docker push cbienaime/multi-worker
->>>>>>> 9fa75db8e61d2df100dd3279c0bbaab93d76b9dd
+
+
